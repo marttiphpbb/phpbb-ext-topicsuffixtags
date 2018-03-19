@@ -1,11 +1,11 @@
 <?php
 /**
-* phpBB Extension - marttiphpbb calendar
-* @copyright (c) 2014 - 2017 marttiphpbb <info@martti.be>
+* phpBB Extension - marttiphpbb topicsuffixtags
+* @copyright (c) 2014 - 2018 marttiphpbb <info@martti.be>
 * @license GNU General Public License, version 2 (GPL-2.0)
 */
 
-namespace marttiphpbb\calendar;
+namespace marttiphpbb\topicsuffixtags;
 
 /**
 * @ignore

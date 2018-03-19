@@ -1,15 +1,15 @@
 <?php
 
 /**
-* phpBB Extension - marttiphpbb calendar
-* @copyright (c) 2014 - 2017 marttiphpbb <info@martti.be>
+* phpBB Extension - marttiphpbb topicsuffixtags
+* @copyright (c) 2014 - 2018 marttiphpbb <info@martti.be>
 * @license GNU General Public License, version 2 (GPL-2.0)
 */
 
-namespace marttiphpbb\calendar\render;
+namespace marttiphpbb\topicsuffixtags\render;
 
 use phpbb\controller\helper;
-use marttiphpbb\calendar\util\dateformat;
+use marttiphpbb\topicsuffixtags\util\dateformat;
 
 class tag
 {
@@ -35,21 +35,21 @@ class tag
 	 */
 	public function get(array $input):array
 	{
-		$start = $input['topic_calendar_start'];
+		$start = $input['topic_topicsuffixtags_start'];
 
 		if (!$start)
 		{
 			return [];
 		}
 
-		$end = $input['topic_calendar_end'];
+		$end = $input['topic_topicsuffixtags_end'];
 		
 		$year = gmdate('Y', $start);
 		$month = gmdate('n', $start);
 
 		return [
-			'CALENDAR_TAG_URL' => $this->helper->route('marttiphpbb_calendar_monthview_controller', ['year' => $year, 'month' => $month]),
-			'CALENDAR_TAG' => $this->dateformat->get_period($start, $end),
+			'TOPICSUFFIXTAGS_TAG_URL' => $this->helper->route('marttiphpbb_topicsuffixtags_monthview_controller', ['year' => $year, 'month' => $month]),
+			'TOPICSUFFIXTAGS_TAG' => $this->dateformat->get_period($start, $end),
 		];
 	}
 }

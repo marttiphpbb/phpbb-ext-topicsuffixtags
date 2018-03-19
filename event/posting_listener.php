@@ -1,11 +1,11 @@
 <?php
 /**
-* phpBB Extension - marttiphpbb calendar
-* @copyright (c) 2014 - 2017 marttiphpbb <info@martti.be>
+* phpBB Extension - marttiphpbb topicsuffixtags
+* @copyright (c) 2014 - 2018 marttiphpbb <info@martti.be>
 * @license GNU General Public License, version 2 (GPL-2.0)
 */
 
-namespace marttiphpbb\calendar\event;
+namespace marttiphpbb\topicsuffixtags\event;
 
 use phpbb\auth\auth;
 use phpbb\config\config;
@@ -16,9 +16,9 @@ use phpbb\user;
 use phpbb\language\language;
 use phpbb\event\data as event;
 
-use marttiphpbb\calendar\render\include_assets;
-use marttiphpbb\calendar\render\input_settings;
-use marttiphpbb\calendar\render\posting;
+use marttiphpbb\topicsuffixtags\render\include_assets;
+use marttiphpbb\topicsuffixtags\render\input_settings;
+use marttiphpbb\topicsuffixtags\render\posting;
 
 /**
 * @ignore
@@ -138,44 +138,44 @@ class posting_listener implements EventSubscriberInterface
 
 		$error = ['error'];		
 
-		$post_data['topic_calendar_start'] = $this->request->variable('calendar_date_start', '');
-		$post_data['topic_calendar_end'] = $this->request->variable('calendar_date_end', '');
+		$post_data['topic_topicsuffixtags_start'] = $this->request->variable('topicsuffixtags_date_start', '');
+		$post_data['topic_topicsuffixtags_end'] = $this->request->variable('topicsuffixtags_date_end', '');
 
 		$event['post_data'] = $post_data;
 
 		return;
 
-		if (substr_count($post_data['topic_calendar_start'], '-') == 2)
+		if (substr_count($post_data['topic_topicsuffixtags_start'], '-') == 2)
 		{
-			list($start_year, $start_month, $start_day) = explode('-', $post_data['topic_calendar_start']);
+			list($start_year, $start_month, $start_day) = explode('-', $post_data['topic_topicsuffixtags_start']);
 
 			if (!checkdate($start_month, $start_day, $start_year))
 			{
-				$error[] = $this->language->lang('CALENDAR_START_DATE_ERROR');
+				$error[] = $this->language->lang('TOPICSUFFIXTAGS_START_DATE_ERROR');
 			}
 		}
 		else
 		{
-			$error[] = $this->language->lang('CALENDAR_START_DATE_ERROR');
+			$error[] = $this->language->lang('TOPICSUFFIXTAGS_START_DATE_ERROR');
 		}
 
-		if (substr_count($post_data['topic_calendar_end'], '-') == 2)
+		if (substr_count($post_data['topic_topicsuffixtags_end'], '-') == 2)
 		{
-			list($end_year, $end_month, $end_day) = explode('-', $post_data['topic_calendar_end']);
+			list($end_year, $end_month, $end_day) = explode('-', $post_data['topic_topicsuffixtags_end']);
 
 			if (!checkdate($end_month, $end_day, $end_year))
 			{
-				$error[] = $this->language->lang('CALENDAR_END_DATE_ERROR');
+				$error[] = $this->language->lang('TOPICSUFFIXTAGS_END_DATE_ERROR');
 			}
 		}
 		else
 		{
-			$error[] = $this->language->lang('CALENDAR_END_DATE_ERROR');
+			$error[] = $this->language->lang('TOPICSUFFIXTAGS_END_DATE_ERROR');
 		}
 
 /*
-		$post_data['topic_calendar_start'] = gmmktime(12, 0, 0, $start_month, $start_day, $start_year);
-		$post_data['topic_calendar_end'] = gmmktime(12, 0, 0, $end_month, $end_day, $end_year);
+		$post_data['topic_topicsuffixtags_start'] = gmmktime(12, 0, 0, $start_month, $start_day, $start_year);
+		$post_data['topic_topicsuffixtags_end'] = gmmktime(12, 0, 0, $end_month, $end_day, $end_year);
 */
 		$event['error'] = $error;
 		$event['post_data'] = $post_data;
@@ -195,14 +195,14 @@ class posting_listener implements EventSubscriberInterface
 
 // todo: checking according to settings
 
-		list($start_year, $start_month, $start_day) = explode('-', $post_data['topic_calendar_start']);
-		list($end_year, $end_month, $end_day) = explode('-', $post_data['topic_calendar_end']);
+		list($start_year, $start_month, $start_day) = explode('-', $post_data['topic_topicsuffixtags_start']);
+		list($end_year, $end_month, $end_day) = explode('-', $post_data['topic_topicsuffixtags_end']);
 
 		$start = gmmktime(12, 0, 0, $start_month, $start_day, $start_year);
 		$end = gmmktime(12, 0, 0, $end_month, $end_day, $end_year);
 
-		$data['topic_calendar_start'] = $start;
-		$data['topic_calendar_end'] = $end;
+		$data['topic_topicsuffixtags_start'] = $start;
+		$data['topic_topicsuffixtags_end'] = $end;
 
 		$event['data'] = $data;
 	}
@@ -238,8 +238,8 @@ class posting_listener implements EventSubscriberInterface
 		$sql_data = $event['sql_data'];
 		$data = $event['data'];
 
-		$sql_data[TOPICS_TABLE]['sql']['topic_calendar_start'] = $data['topic_calendar_start'];
-		$sql_data[TOPICS_TABLE]['sql']['topic_calendar_end'] = $data['topic_calendar_end'];
+		$sql_data[TOPICS_TABLE]['sql']['topic_topicsuffixtags_start'] = $data['topic_topicsuffixtags_start'];
+		$sql_data[TOPICS_TABLE]['sql']['topic_topicsuffixtags_end'] = $data['topic_topicsuffixtags_end'];
 
 		$event['sql_data'] = $sql_data;
 	}

@@ -1,11 +1,11 @@
 {
-	"name": "marttiphpbb/calendar",
+	"name": "marttiphpbb/topicsuffixtags",
 	"type": "phpbb-extension",
-	"description": "Calendar Extension for phpBB 3.2",
-	"homepage": "https://github.com/marttiphpbb/phpbb-ext-calendar",
+	"description": "Topic Suffix Tags Extension for phpBB 3.2",
+	"homepage": "https://github.com/marttiphpbb/phpbb-ext-topicsuffixtags",
 	"version": "0.1.0",
 	"time": "2017-01-30",
-	"keywords": ["phpbb", "extension", "calendar"],
+	"keywords": ["phpbb", "extension", "topic", "suffix", "tags"],
 	"license": "GPL-2.0",
 	"authors": [{
 			"name": "martti",
@@ -14,19 +14,17 @@
 			"role": "Developer"
 		}],
 	"require": {
-		"php": ">=5.4",
-		"components/jqueryui": "^1.11",
-		"robloach/component-installer": "*"
+		"php": ">=7"
 	},
 	"extra": {
-		"display-name": "Calendar",
+		"display-name": "Topic Suffix Tags",
 		"soft-require": {
 			"phpbb/phpbb": ">=3.2.0,<3.3.*@dev"
 		},
 		"version-check": {
 			"host": "marttiphpbb.github.io",
 			"directory": "/version",
-			"filename": "calendar.json"
+			"filename": "topicsuffixtags.json"
 		}
 	}
 }

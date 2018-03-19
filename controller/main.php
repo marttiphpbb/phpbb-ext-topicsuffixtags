@@ -1,12 +1,12 @@
 <?php
 
 /**
-* phpBB Extension - marttiphpbb calendar
-* @copyright (c) 2014 - 2017 marttiphpbb <info@martti.be>
+* phpBB Extension - marttiphpbb topicsuffixtags
+* @copyright (c) 2014 - 2018 marttiphpbb <info@martti.be>
 * @license GNU General Public License, version 2 (GPL-2.0)
 */
 
-namespace marttiphpbb\calendar\controller;
+namespace marttiphpbb\topicsuffixtags\controller;
 
 use phpbb\auth\auth;
 use phpbb\cache\service as cache;
@@ -18,13 +18,13 @@ use phpbb\user;
 use phpbb\language\language;
 use phpbb\controller\helper;
 
-use marttiphpbb\calendar\core\event_container;
-use marttiphpbb\calendar\util\moonphase_calculator;
-use marttiphpbb\calendar\util\timeformat;
-use marttiphpbb\calendar\model\render_settings;
-use marttiphpbb\calendar\model\pagination;
+use marttiphpbb\topicsuffixtags\core\event_container;
+use marttiphpbb\topicsuffixtags\util\moonphase_calculator;
+use marttiphpbb\topicsuffixtags\util\timeformat;
+use marttiphpbb\topicsuffixtags\model\render_settings;
+use marttiphpbb\topicsuffixtags\model\pagination;
 
-use marttiphpbb\calendar\core\timespan;
+use marttiphpbb\topicsuffixtags\core\timespan;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -150,7 +150,7 @@ class main
 		$month_start_weekday = gmdate('w', $month_start_time);
 		$month_days_num = gmdate('t', $month_start_time);
 
-		$days_prefill = $month_start_weekday - $this->config['calendar_first_weekday'];
+		$days_prefill = $month_start_weekday - $this->config['topicsuffixtags_first_weekday'];
 		$days_prefill += $days_prefill < 0 ? 7 : 0;
 		$prefill = $days_prefill * 86400;
 
@@ -175,7 +175,7 @@ class main
 
 		$this->event_container->set_timespan($timespan)
 			->fetch()
-			->create_event_rows($this->config['calendar_min_rows'])
+			->create_event_rows($this->config['topicsuffixtags_min_rows'])
 			->arrange();
 
 		//var_dump($this->event_container->get_events());
@@ -273,7 +273,7 @@ class main
 		$this->template->assign_vars([
 			'MONTH'			=> $this->user->format_date($month_start_time, 'F', true),
 			'YEAR'			=> $year,
-			'U_YEAR'		=> $this->helper->route('marttiphpbb_calendar_yearview_controller', [
+			'U_YEAR'		=> $this->helper->route('marttiphpbb_topicsuffixtags_yearview_controller', [
 				'year' => $year]),
 		]);
 

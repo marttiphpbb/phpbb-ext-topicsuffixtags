@@ -1,11 +1,11 @@
 <?php
 /**
-* phpBB Extension - marttiphpbb calendar
-* @copyright (c) 2014 - 2017 marttiphpbb <info@martti.be>
+* phpBB Extension - marttiphpbb topicsuffixtags
+* @copyright (c) 2014 - 2018 marttiphpbb <info@martti.be>
 * @license GNU General Public License, version 2 (GPL-2.0)
 */
 
-namespace marttiphpbb\calendar\acp;
+namespace marttiphpbb\topicsuffixtags\acp;
 
 class main_module
 {
@@ -18,28 +18,28 @@ class main_module
 		global $phpbb_container;
 
 		$language = $phpbb_container->get('language');
-		$language->add_lang('acp', 'marttiphpbb/calendar');
-		add_form_key('marttiphpbb/calendar');
+		$language->add_lang('acp', 'marttiphpbb/topicsuffixtags');
+		add_form_key('marttiphpbb/topicsuffixtags');
 
 		switch($mode)
 		{
 			case 'links':
 
-				$links = $phpbb_container->get('marttiphpbb.calendar.render.links');
+				$links = $phpbb_container->get('marttiphpbb.topicsuffixtags.render.links');
 
 				$this->tpl_name = 'links';
-				$this->page_title = $language->lang('ACP_CALENDAR_LINKS');
+				$this->page_title = $language->lang('ACP_TOPICSUFFIXTAGS_LINKS');
 
 				if ($request->is_set_post('submit'))
 				{
-					if (!check_form_key('marttiphpbb/calendar'))
+					if (!check_form_key('marttiphpbb/topicsuffixtags'))
 					{
 						trigger_error('FORM_INVALID');
 					}
 
-					$links->set($request->variable('links', [0 => 0]), $request->variable('calendar_repo_link', 0));
+					$links->set($request->variable('links', [0 => 0]), $request->variable('topicsuffixtags_repo_link', 0));
 
-					trigger_error($language->lang('ACP_CALENDAR_SETTING_SAVED') . adm_back_link($this->u_action));
+					trigger_error($language->lang('ACP_TOPICSUFFIXTAGS_SETTING_SAVED') . adm_back_link($this->u_action));
 				}
 
 				$links->assign_acp_select_template_vars();
@@ -48,23 +48,23 @@ class main_module
 
 			case 'page_rendering':
 
-				$render_settings = $phpbb_container->get('marttiphpbb.calendar.render.render_settings');
+				$render_settings = $phpbb_container->get('marttiphpbb.topicsuffixtags.render.render_settings');
 
 				$this->tpl_name = 'page_rendering';
-				$this->page_title = $language->lang('ACP_CALENDAR_PAGE_RENDERING');
+				$this->page_title = $language->lang('ACP_TOPICSUFFIXTAGS_PAGE_RENDERING');
 
 				if ($request->is_set_post('submit'))
 				{
-					if (!check_form_key('marttiphpbb/calendar'))
+					if (!check_form_key('marttiphpbb/topicsuffixtags'))
 					{
 						trigger_error('FORM_INVALID');
 					}
 
 					$render_settings->set($request->variable('render_settings', [0 => 0]));
-					$config->set('calendar_first_weekday', $request->variable('calendar_first_weekday', 0));
-					$config->set('calendar_min_rows', $request->variable('calendar_min_rows', 5));
+					$config->set('topicsuffixtags_first_weekday', $request->variable('topicsuffixtags_first_weekday', 0));
+					$config->set('topicsuffixtags_min_rows', $request->variable('topicsuffixtags_min_rows', 5));
 
-					trigger_error($language->lang('ACP_CALENDAR_SETTING_SAVED') . adm_back_link($this->u_action));
+					trigger_error($language->lang('ACP_TOPICSUFFIXTAGS_SETTING_SAVED') . adm_back_link($this->u_action));
 				}
 
 				$weekdays = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
@@ -73,27 +73,27 @@ class main_module
 				{
 					$template->assign_block_vars('weekdays', [
 						'VALUE'			=> $value,
-						'S_SELECTED'	=> $config['calendar_first_weekday'] == $value ? true : false,
+						'S_SELECTED'	=> $config['topicsuffixtags_first_weekday'] == $value ? true : false,
 						'LANG'			=> $language->lang(['datetime', $name]),
 					]);
 				}
 
 				$render_settings->assign_acp_template_vars();
 
-				$template->assign_var('CALENDAR_MIN_ROWS', $config['calendar_min_rows']);
+				$template->assign_var('TOPICSUFFIXTAGS_MIN_ROWS', $config['topicsuffixtags_min_rows']);
 
 				break;
 
 			case 'input':
 
 				$this->tpl_name = 'input';
-				$this->page_title = $language->lang('ACP_CALENDAR_INPUT');
+				$this->page_title = $language->lang('ACP_TOPICSUFFIXTAGS_INPUT');
 
-				$input_settings = $phpbb_container->get('marttiphpbb.calendar.render.input_settings');
+				$input_settings = $phpbb_container->get('marttiphpbb.topicsuffixtags.render.input_settings');
 
 				if ($request->is_set_post('submit'))
 				{
-					if (!check_form_key('marttiphpbb/calendar'))
+					if (!check_form_key('marttiphpbb/topicsuffixtags'))
 					{
 						trigger_error('FORM_INVALID');
 					}
@@ -109,7 +109,7 @@ class main_module
 
 					$input_settings->set_days($set_ary);
 
-					trigger_error($language->lang('ACP_CALENDAR_SETTING_SAVED') . adm_back_link($this->u_action));
+					trigger_error($language->lang('ACP_TOPICSUFFIXTAGS_SETTING_SAVED') . adm_back_link($this->u_action));
 				}
 
 				$input_settings->assign_acp_template_vars();
@@ -119,13 +119,13 @@ class main_module
 			case 'input_forums':
 
 				$this->tpl_name = 'input_forums';
-				$this->page_title = $language->lang('ACP_CALENDAR_INPUT_FORUMS');
+				$this->page_title = $language->lang('ACP_TOPICSUFFIXTAGS_INPUT_FORUMS');
 
-				$input_settings = $phpbb_container->get('marttiphpbb.calendar.render.input_settings');
+				$input_settings = $phpbb_container->get('marttiphpbb.topicsuffixtags.render.input_settings');
 
 				if ($request->is_set_post('submit'))
 				{
-					if (!check_form_key('marttiphpbb/calendar'))
+					if (!check_form_key('marttiphpbb/topicsuffixtags'))
 					{
 						trigger_error('FORM_INVALID');
 					}
@@ -147,7 +147,7 @@ class main_module
 
 					$input_settings->set_forums($forum_ary);
 
-					trigger_error($language->lang('ACP_CALENDAR_SETTING_SAVED') . adm_back_link($this->u_action));
+					trigger_error($language->lang('ACP_TOPICSUFFIXTAGS_SETTING_SAVED') . adm_back_link($this->u_action));
 				}
 
 				$input_ary = $input_settings->get_forums();
@@ -175,22 +175,22 @@ class main_module
 
 			case 'include_assets':
 
-				$include_assets = $phpbb_container->get('marttiphpbb.calendar.render.include_assets');
+				$include_assets = $phpbb_container->get('marttiphpbb.topicsuffixtags.render.include_assets');
 	
 				$this->tpl_name = 'include_assets';
-				$this->page_title = $language->lang('ACP_CALENDAR_INCLUDE_ASSETS');
+				$this->page_title = $language->lang('ACP_TOPICSUFFIXTAGS_INCLUDE_ASSETS');
 
 				if ($request->is_set_post('submit'))
 				{
-					if (!check_form_key('marttiphpbb/calendar'))
+					if (!check_form_key('marttiphpbb/topicsuffixtags'))
 					{
 						trigger_error('FORM_INVALID');
 					}
 
 					$include_assets->set($request->variable('include_assets', [0 => 0]));
-					$config->set('calendar_datepicker_theme', $request->variable('calendar_datepicker_theme', ''));
+					$config->set('topicsuffixtags_datepicker_theme', $request->variable('topicsuffixtags_datepicker_theme', ''));
 
-					trigger_error($language->lang('ACP_CALENDAR_SETTING_SAVED') . adm_back_link($this->u_action));
+					trigger_error($language->lang('ACP_TOPICSUFFIXTAGS_SETTING_SAVED') . adm_back_link($this->u_action));
 				}
 
 				$include_assets->assign_acp_select_template_vars();
