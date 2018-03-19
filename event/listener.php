@@ -8,7 +8,7 @@
 namespace marttiphpbb\topicsuffixtags\event;
 
 use phpbb\template\template;
-use marttiphpbb\topicsuffixtags\service\tag;
+use marttiphpbb\topicsuffixtags\service\tags;
 use phpbb\event\data as event;
 
 /**
