@@ -1,1 +1,11 @@
-{%- if topicrow.TOPICSUFFIXTAGS_TAG is defined -%}<span> [<a href="{{ topicrow.TOPICSUFFIXTAGS_TAG_URL }}">{{- topicrow.TOPICSUFFIXTAGS_TAG -}}</a>]</span>{%- endif -%}
+{%- if marttiphpbb_topicsuffixtags_tags[topicrow.TOPIC_ID] is defined -%}
+    <span class="marttiphpbb-topicsuffixtags-mcp">&nbsp;
+        {%- for t in marttiphpbb_topicsuffixtags_tags[topicrow.TOPIC_ID] -%}
+            {%- if t.include is defined -%}
+                {%- include t.include with {'var': t.var} only -%}
+            {%- else -%}
+                {{- t|raw -}}
+            {%- endif -%}
+        {%- endfor -%}
+    </span>
+{%- endif -%}

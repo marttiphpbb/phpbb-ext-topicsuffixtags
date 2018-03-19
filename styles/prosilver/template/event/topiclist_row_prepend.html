@@ -1,2 +1,13 @@
-{%- if topicrow.TOPICSUFFIXTAGS_TAG is defined -%}<span class="topicsuffixtags-topicrow"> [<a href="{{- topicrow.TOPICSUFFIXTAGS_TAG_URL -}}">{{- topicrow.TOPICSUFFIXTAGS_TAG -}}</a>]</span>{%- endif -%}
-{%- if searchresults.TOPICSUFFIXTAGS_TAG is defined -%}<span class="topicsuffixtags-topicrow"> [<a href="{{- searchresults.TOPICSUFFIXTAGS_TAG_URL -}}">{{- searchresults.TOPICSUFFIXTAGS_TAG -}}</a>]</span>{%- endif -%}
+{%- set marrttiphpbb_topicsuffixtags_topic_id = topicrow.TOPIC_ID ?? searchresults.TOPIC_ID ?? null -%}
+
+{%- if marttiphpbb_topicsuffixtags_tags[marrttiphpbb_topicsuffixtags_topic_id] is defined -%}
+    <span class="marttiphpbb-topicsuffixtags-topicrow">&nbsp;
+        {%- for t in marttiphpbb_topicsuffixtags_tags[marrtti_phpbb_topicsuffixtags_topic_id] -%}
+            {%- if t.include is defined -%}
+                {%- include t.include with {'var': t.var} only -%}
+            {%- else -%}
+                {{- t|raw -}}
+            {%- endif -%}
+        {%- endfor -%}
+    </span>
+{%- endif -%}

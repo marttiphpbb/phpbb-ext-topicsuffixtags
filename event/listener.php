@@ -8,7 +8,7 @@
 namespace marttiphpbb\topicsuffixtags\event;
 
 use phpbb\template\template;
-use marttiphpbb\topicsuffixtags\render\tag;
+use marttiphpbb\topicsuffixtags\service\tag;
 use phpbb\event\data as event;
 
 /**
@@ -19,65 +19,72 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
 * Event listener
 */
-class tag_listener implements EventSubscriberInterface
+class listener implements EventSubscriberInterface
 {
-	/* @var template */
+	/** @var template */
 	protected $template;
 
-	/* @var tag */
-	protected $tag;
+	/** @var tags */
+	protected $tags;
 
 	/**
 	* @param template	$template
-	* @param tag 		$tag
+	* @param tags 		$tags
 	*/
-	public function __construct(template $template, tag $tag)
+	public function __construct(template $template, tags $tags)
 	{
 		$this->template = $template;
-		$this->tag = $tag;
+		$this->tags = $tags;
 	}
 
 	static public function getSubscribedEvents()
 	{
 		return [
 			'core.viewtopic_assign_template_vars_before'
-					=> 'core_viewtopic_assign_template_vars_before',
+				=> 'core_viewtopic_assign_template_vars_before',
 			'core.viewforum_modify_topicrow'
-					=> 'core_viewforum_modify_topicrow',
+				=> 'core_viewforum_modify_topicrow',
 			'core.mcp_view_forum_modify_topicrow'
-					=> 'core_mcp_view_forum_modify_topicrow',
+				=> 'core_mcp_view_forum_modify_topicrow',
 			'core.search_modify_tpl_ary'
-					=> 'core_search_modify_tpl_ary',
+				=> 'core_search_modify_tpl_ary',
 			'core.posting_modify_template_vars'
-					=> 'core_posting_modify_template_vars',
+				=> 'core_posting_modify_template_vars',
+			'core.twig_environment_render_template_before'
+				=> 'core_twig_environment_render_template_before',
 		];
 	}
 
 	public function core_posting_modify_template_vars(event $event)
 	{
-		$event['page_data'] = array_merge($event['page_data'], $this->tag->get($event['post_data']));
+		$this->tags->trigger_event($event['post_data']);
 	}
 
 	public function core_search_modify_tpl_ary(event $event)
 	{
 		if ($event['show_results'] === 'topics')
 		{
-			$event['tpl_ary'] = array_merge($event['tpl_ary'], $this->tag->get($event['row']));
+			$this->tags->trigger_event($event['row']);
 		}
 	}
 
 	public function core_viewforum_modify_topicrow(event $event)
 	{
-		$event['topic_row'] = array_merge($event['topic_row'], $this->tag->get($event['row']));		
+		$this->tags->trigger_event($event['row']);		
 	}
 
 	public function core_mcp_view_forum_modify_topicrow(event $event)
 	{
-		$event['topic_row'] = array_merge($event['topic_row'], $this->tag->get($event['row']));		
+		$this->tags->trigger_event($event['row']);		
 	}
 
 	public function core_viewtopic_assign_template_vars_before(event $event)
 	{
-		$this->template->assign_vars($this->tag->get($event['topic_data']));
+		$this->tags->trigger_event($event['topic_data']);
+	}
+
+	public function core_twig_environment_render_template_before(event $event)
+	{
+		$event['context']['marttiphpbb_topicsuffixtags_tags'] = $this->tags->get_all();
 	}
 }
