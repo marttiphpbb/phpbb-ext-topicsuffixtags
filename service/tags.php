@@ -31,15 +31,15 @@ class tags
 	 */
 	public function trigger_event(string $origin_event_name, array $topic_data)
 	{
-		$topic_id = $topic_row['topic_id'];	
+		$topic_id = $topic_data['topic_id'];	
 		$tags = [];
 	
 		/**
 		 * Run to set topic suffix tags 
 		 *
 		 * @event 
-		 * @var	int 	topic_id			changing won't have effect on core
-		 * @var	array	topic_data			changing won't have effect on core
+		 * @var	int 	topic_id			changing won't be fed back to calling event
+		 * @var	array	topic_data			changing won't be fed back to calling event
 		 * @var string  origin_event_name	name of the original event
 		 * @var array	tags				push here your tags 
 		 *
