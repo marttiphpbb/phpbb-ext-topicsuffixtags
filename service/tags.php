@@ -33,7 +33,7 @@ class tags
 	{
 		$topic_id = $topic_row['topic_id'];	
 		$tags = [];
-
+	
 		/**
 		 * Run to set topic suffix tags 
 		 *

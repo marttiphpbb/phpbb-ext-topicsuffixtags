@@ -1,0 +1,11 @@
+{%- if marttiphpbb_topicsuffixtags_tags[TOPIC_ID] is defined -%}
+    <span class="marttiphpbb-topicsuffixtags-mcp-topic">&nbsp;
+        {%- for t in marttiphpbb_topicsuffixtags_tags[TOPIC_ID] -%}
+            {%- if t.include is defined -%}
+                {%- include t.include with {'var': t.var} only -%}
+            {%- else -%}
+                {{- t|raw -}}
+            {%- endif -%}
+        {%- endfor -%}
+    </span>
+{%- endif -%}

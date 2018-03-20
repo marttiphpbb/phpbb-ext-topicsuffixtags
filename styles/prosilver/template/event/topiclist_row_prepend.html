@@ -1,8 +1,7 @@
-{%- set marrttiphpbb_topicsuffixtags_topic_id = topicrow.TOPIC_ID ?? searchresults.TOPIC_ID ?? null -%}
-
-{%- if marttiphpbb_topicsuffixtags_tags[marrttiphpbb_topicsuffixtags_topic_id] is defined -%}
-    <span class="marttiphpbb-topicsuffixtags-topicrow">&nbsp;
-        {%- for t in marttiphpbb_topicsuffixtags_tags[marrtti_phpbb_topicsuffixtags_topic_id] -%}
+{%- set marttiphpbb_topicsuffixtags_topic_id = topicrow.TOPIC_ID ?? searchresults.TOPIC_ID ?? -1 -%}
+{%- if marttiphpbb_topicsuffixtags_tags[marttiphpbb_topicsuffixtags_topic_id] is defined -%}
+    <span class="marttiphpbb-topicsuffixtags-topicrow">&nbsp;    
+        {%- for t in marttiphpbb_topicsuffixtags_tags[marttiphpbb_topicsuffixtags_topic_id] -%}
             {%- if t.include is defined -%}
                 {%- include t.include with {'var': t.var} only -%}
             {%- else -%}
