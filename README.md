@@ -1,5 +1,7 @@
 # phpBB Extension - marttiphpbb Topic Suffix Tags (helper ext)
 
+[Topic on phpBB.com](https://www.phpbb.com/community/viewtopic.php?f=456&t=2473976)
+
 ## Features
 
 This phpBB helper extension provides a PHP event for other extension to add suffix tags to topics.
