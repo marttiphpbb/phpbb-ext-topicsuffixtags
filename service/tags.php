@@ -35,7 +35,7 @@ class tags
 		$tags = [];
 	
 		/**
-		 * Run to set topic suffix tags 
+		 * Event to set topic suffix tags 
 		 *
 		 * @event 
 		 * @var	int 	topic_id			changing won't be fed back to calling event
