@@ -10,30 +10,14 @@ namespace marttiphpbb\topicsuffixtags\event;
 use phpbb\template\template;
 use marttiphpbb\topicsuffixtags\service\tags;
 use phpbb\event\data as event;
-
-/**
-* @ignore
-*/
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
-* Event listener
-*/
 class listener implements EventSubscriberInterface
 {
-	/** @var template */
-	private $template;
+	protected $template;
+	protected $tags;
+	protected $mcp_topic_triggered;
 
-	/** @var tags */
-	private $tags;
-
-	/** @var bool */
-	private $mcp_topic_triggered;
-
-	/**
-	* @param template	$template
-	* @param tags 		$tags
-	*/
 	public function __construct(template $template, tags $tags)
 	{
 		$this->template = $template;
@@ -68,7 +52,7 @@ class listener implements EventSubscriberInterface
 		{
 			$page_data = $event['page_data'];
 			$page_data['TOPIC_ID'] = $event['post_data']['topic_id'];
-			$event['page_data'] = $page_data;			
+			$event['page_data'] = $page_data;
 		}
 	}
 
@@ -82,12 +66,12 @@ class listener implements EventSubscriberInterface
 
 	public function core_viewforum_modify_topicrow(event $event)
 	{
-		$this->tags->trigger_event($event->getName(), $event['row']);		
+		$this->tags->trigger_event($event->getName(), $event['row']);
 	}
 
 	public function core_mcp_view_forum_modify_topicrow(event $event)
 	{
-		$this->tags->trigger_event($event->getName(), $event['row']);		
+		$this->tags->trigger_event($event->getName(), $event['row']);
 	}
 
 	public function core_mcp_topic_review_modify_row(event $event)
@@ -100,7 +84,7 @@ class listener implements EventSubscriberInterface
 			 */
 			$this->tags->trigger_event($event->getName(), $event['topic_info']);
 			$this->mcp_topic_triggered = true;
-			$this->template->assign_var('TOPIC_ID', $event['topic_id']);	
+			$this->template->assign_var('TOPIC_ID', $event['topic_id']);
 		}
 	}
 
