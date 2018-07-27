@@ -36,7 +36,7 @@ class tags
 		 *
 		 */
 		$vars = ['topic_id', 'topic_data', 'origin_event_name', 'tags'];
-		$result = $this->dispatcher->trigger_event('marttiphpbb.topicsuffixtags.set_tags', compact($vars));
+		$result = $this->dispatcher->trigger_event('marttiphpbb.topicsuffixtags', compact($vars));
 
 		if (count($result['tags']))
 		{
