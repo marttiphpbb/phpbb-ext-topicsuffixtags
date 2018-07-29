@@ -1,6 +1,6 @@
 {%- set marttiphpbb_topicsuffixtags_topic_id = topicrow.TOPIC_ID ?? searchresults.TOPIC_ID ?? -1 -%}
 {%- if marttiphpbb_topicsuffixtags_tags[marttiphpbb_topicsuffixtags_topic_id] is defined -%}
-    <span class="marttiphpbb-topicsuffixtags-topicrow">&nbsp;    
+    <span class="marttiphpbb-topicsuffixtags-topicrow">&nbsp;
         {%- for t in marttiphpbb_topicsuffixtags_tags[marttiphpbb_topicsuffixtags_topic_id] -%}
             {%- if t.include is defined -%}
                 {%- include t.include with {'var': t.var} only -%}
@@ -9,4 +9,8 @@
             {%- endif -%}
         {%- endfor -%}
     </span>
+    {%- if marttiphpbb_topicsuffixtags_topiclist_js is not defined -%}
+        {%- INCLUDEJS '@marttiphpbb_topicsuffixtags/js/topiclist_suffix.js' -%}
+        {%- set marttiphpbb_topicsuffixtags_topiclist_js = true -%}
+    {%- endif -%}
 {%- endif -%}
