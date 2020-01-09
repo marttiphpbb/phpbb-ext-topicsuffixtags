@@ -44,9 +44,12 @@ class listener implements EventSubscriberInterface
 		];
 	}
 
-	public function core_posting_modify_template_vars(event $event)
+	public function core_posting_modify_template_vars(
+		event $event,
+		string $event_name
+	):void
 	{
-		$this->tags->trigger_event($event->getName(), $event['post_data']);
+		$this->tags->trigger_event($event_name, $event['post_data']);
 
 		if (isset($event['post_data']['topic_id']))
 		{
@@ -56,25 +59,37 @@ class listener implements EventSubscriberInterface
 		}
 	}
 
-	public function core_search_modify_tpl_ary(event $event)
+	public function core_search_modify_tpl_ary(
+		event $event,
+		string $event_name
+	):void
 	{
 		if ($event['show_results'] === 'topics')
 		{
-			$this->tags->trigger_event($event->getName(), $event['row']);
+			$this->tags->trigger_event($event_name, $event['row']);
 		}
 	}
 
-	public function core_viewforum_modify_topicrow(event $event)
+	public function core_viewforum_modify_topicrow(
+		event $event,
+		string $event_name
+	):void
 	{
-		$this->tags->trigger_event($event->getName(), $event['row']);
+		$this->tags->trigger_event($event_name, $event['row']);
 	}
 
-	public function core_mcp_view_forum_modify_topicrow(event $event)
+	public function core_mcp_view_forum_modify_topicrow(
+		event $event,
+		string $event_name
+	):void
 	{
-		$this->tags->trigger_event($event->getName(), $event['row']);
+		$this->tags->trigger_event($event_name, $event['row']);
 	}
 
-	public function core_mcp_topic_review_modify_row(event $event)
+	public function core_mcp_topic_review_modify_row(
+		event $event,
+		string $event_name
+	):void
 	{
 		if (!isset($this->mcp_topic_triggered))
 		{
@@ -82,15 +97,18 @@ class listener implements EventSubscriberInterface
 			 * Because the event core.mcp_topic_modify_post_data does not contain topic_info (?),
 			 * we have to use the post row event core.mcp_topic_review_modify_row but we only need it once.
 			 */
-			$this->tags->trigger_event($event->getName(), $event['topic_info']);
+			$this->tags->trigger_event($event_name, $event['topic_info']);
 			$this->mcp_topic_triggered = true;
 			$this->template->assign_var('TOPIC_ID', $event['topic_id']);
 		}
 	}
 
-	public function core_viewtopic_assign_template_vars_before(event $event)
+	public function core_viewtopic_assign_template_vars_before(
+		event $event,
+		string $event_name
+	):void
 	{
-		$this->tags->trigger_event($event->getName(), $event['topic_data']);
+		$this->tags->trigger_event($event_name, $event['topic_data']);
 	}
 
 	public function core_twig_environment_render_template_before(event $event)

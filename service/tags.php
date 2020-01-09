@@ -20,7 +20,10 @@ class tags
 		$this->dispatcher = $dispatcher;
 	}
 
-	public function trigger_event(string $origin_event_name, array $topic_data)
+	public function trigger_event(
+		string $origin_event_name,
+		array $topic_data
+	):void
 	{
 		$topic_id = $topic_data['topic_id'];
 		$tags = [];
