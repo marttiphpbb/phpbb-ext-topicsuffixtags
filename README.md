@@ -8,8 +8,8 @@ This phpBB helper extension provides a PHP event for other extension to add suff
 
 ## Requirements
 
-* phpBB 3.2.1+
-* PHP 7+
+* phpBB 3.3.0+
+* PHP 7.1+
 
 ## Quick Install
 
