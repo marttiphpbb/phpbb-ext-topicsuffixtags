@@ -25,7 +25,7 @@ class tags
 		array $topic_data
 	):void
 	{
-		$topic_id = $topic_data['topic_id'];
+		$topic_id = $topic_data['topic_id'] ?? null;
 		$tags = [];
 
 		/**
