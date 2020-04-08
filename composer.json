@@ -3,10 +3,10 @@
 	"type": "phpbb-extension",
 	"description": "Topic Suffix Tags Helper Extension for phpBB 3.3",
 	"homepage": "https://github.com/marttiphpbb/phpbb-ext-topicsuffixtags",
-	"version": "0.4.0",
-	"time": "2020-01-09",
+	"version": "0.5.0",
+	"time": "2020-04-08",
 	"keywords": ["phpbb", "extension", "topic", "suffix", "tags"],
-	"license": "GPL-2.0",
+	"license": "GPL-2.0-only",
 	"authors": [{
 			"name": "martti",
 			"email": "info@martti.be",
