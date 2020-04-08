@@ -24,7 +24,7 @@ class listener implements EventSubscriberInterface
 		$this->tags = $tags;
 	}
 
-	static public function getSubscribedEvents()
+	static public function getSubscribedEvents():array
 	{
 		return [
 			'core.viewtopic_assign_template_vars_before'
@@ -111,7 +111,7 @@ class listener implements EventSubscriberInterface
 		$this->tags->trigger_event($event_name, $event['topic_data']);
 	}
 
-	public function core_twig_environment_render_template_before(event $event)
+	public function core_twig_environment_render_template_before(event $event):void
 	{
 		$context = $event['context'];
 		$context['marttiphpbb_topicsuffixtags_tags'] = $this->tags->get_all();
